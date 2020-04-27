@@ -1,0 +1,26 @@
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\obj\x64\Debug\rotation matrix test.csprojAssemblyReference.cache
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\obj\x64\Debug\rotation matrix test.csproj.CoreCompileInputs.cache
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\dll\x86\OpenCvSharpExtern.dll
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\dll\x86\opencv_ffmpeg400.dll
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\dll\x64\OpenCvSharpExtern.dll
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\dll\x64\opencv_ffmpeg400_64.dll
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\rotation matrix test.exe.config
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\rotation matrix test.exe
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\rotation matrix test.pdb
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\MathNet.Numerics.dll
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\OpenCvSharp.Blob.dll
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\OpenCvSharp.dll
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\OpenCvSharp.Extensions.dll
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\OpenCvSharp.UserInterface.dll
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\MathNet.Numerics.xml
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\OpenCvSharp.pdb
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\OpenCvSharp.xml
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\OpenCvSharp.Blob.pdb
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\OpenCvSharp.Blob.xml
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\OpenCvSharp.Extensions.pdb
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\OpenCvSharp.Extensions.xml
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\OpenCvSharp.UserInterface.pdb
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\bin\x64\Debug\OpenCvSharp.UserInterface.xml
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\obj\x64\Debug\rotation matrix test.csproj.CopyComplete
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\obj\x64\Debug\rotation matrix test.exe
+C:\Users\Li&Ao\Documents\Visual Studio 2017\Projects\rotation matrix test\rotation matrix test\obj\x64\Debug\rotation matrix test.pdb
