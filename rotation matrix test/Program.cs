@@ -2,8 +2,7 @@
 using MathNet.Numerics.LinearAlgebra;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+
 
 //--------------------------------------------------------------------------------------------------
 
@@ -25,67 +24,10 @@ class calcR
         return R;
     }
 
-    //--------------------------------------------------------------------------------------------------
-
-    /*
-     * Homography: Calculate the H matirx.
-     * H = A-1*B
+    //----------------------------------------------------------------------------------------------
+    /**
+     *Calculate distance
      */
-    public static Matrix<double> FindHomography(List<Point2d> points_src, List<Point2d> points_dst)
-    {
-        // Check if the two points are of same size and the size the larger than 4
-        Debug.Assert(points_src.Count == points_dst.Count);
-        Debug.Assert(points_src.Count >= 4);
-
-        // Ax = B, x is the array of items in homography matrix.
-        var A = Matrix<double>.Build.Dense(2 * points_src.Count, 8);
-        for (int i = 0; i < points_src.Count; i += 2)
-        {
-            double u = points_dst[i].X;
-            double v = points_dst[i].Y;
-            double x = points_src[i].X;
-            double y = points_src[i].Y;
-            double[,] row1 = new double[1, 8] { { -x, -y, -1, 0, 0, 0, u * x, u * y } };
-            var row_1 = Matrix<double>.Build.DenseOfArray(row1);
-            double[,] row2 = new double[1, 8] { { 0, 0, 0, -x, -y, -1, v * x, v * y } };
-            var row_2 = Matrix<double>.Build.DenseOfArray(row2);
-            A.SetSubMatrix(i, 0, row_1);
-            A.SetSubMatrix(i + 1, 0, row_2);
-        }
-
-        var B = Matrix<double>.Build.Dense(2 * points_src.Count, 1);
-        for (int i = 0; i < points_src.Count; i += 2)
-        {
-            B[i, 0] = -1 * points_dst[i].X;
-            B[i + 1, 0] = -1 * points_dst[i].Y;
-        }
-
-        // Solve Ax = B with least square
-        var h = A.Solve(B);
-
-        var H = Matrix<double>.Build.Dense(3, 3);
-        H[0, 0] = h[0, 0]; H[0, 1] = h[1, 0]; H[0, 2] = h[2, 0];
-        H[1, 0] = h[3, 0]; H[1, 1] = h[4, 0]; H[1, 2] = h[5, 0];
-        H[2, 0] = h[6, 0]; H[2, 1] = h[7, 0]; H[2, 2] = 1;
-
-        return H;
-    }
-
-    //-for Homograpgy--------------------------------------------------------------------------------------------------------------
-
-    public static double CalculateDistance_H(Point2d kp1, Point2d kp2, Matrix<double> H)
-    {
-        var c1 = Vector<double>.Build.DenseOfArray(new[] { kp1.X, kp1.Y, 1 });
-        var c2 = Vector<double>.Build.DenseOfArray(new[] { kp2.X, kp2.Y, 1 });
-
-        var transformed_c1 = H * c1;
-        var err_vec = transformed_c1 - c2;
-
-        return (err_vec[0] * err_vec[0] + err_vec[1] * err_vec[1]);
-    }
-
-    //--for Rotation matrix--------------------------------------------------------------------------------------------
-
     public static double CalculateDistance_R(Vector<double> v1, Vector<double> v2, Matrix<double> R)
     {
         //Calculate the Rotation matrix from A->B: B = R * A
@@ -96,33 +38,6 @@ class calcR
         return (err_vec[0] * err_vec[0] + err_vec[1] * err_vec[1] + err_vec[2] * err_vec[2]);
     }
 
-    //public static double CalculateDistance_R(Point2d kp2, Vector<double> v1, Matrix<double> R, int W, int H)
-    //{
-    //    //Calculate the Rotation matrix from A->B: B = R * A
-    //    var tran_v2 = R * v1;
-    //    Console.WriteLine("vector :" + tran_v2);
-    //    double x = tran_v2[0];
-    //    double y = tran_v2[1];
-    //    double z = tran_v2[2];
-
-    //    //inverse 3D tp 2D point
-    //    double tran_alpha = Math.Atan(z / x);
-    //    double tran_beta = Math.Asin(y / Math.Sqrt(x*x + y*y + z*z));
-
-    //    double tran_u = (tran_alpha / 2 * Math.PI) + 0.5;
-    //    double tran_v = 0.5 - (tran_beta / Math.PI);
-
-    //    double tran_Y = tran_u * W - 0.5;
-    //    double tran_X = tran_v * H - 0.5;
-    //    Console.WriteLine("tran_x :" + tran_X);
-    //    Console.WriteLine("tran_y:" + tran_Y);
-    //    double error_X = kp2.X - tran_X;
-    //    double error_Y = kp2.Y - tran_Y;
-    //    Console.WriteLine("kp2.x :" + kp2.X);
-    //    Console.WriteLine("kp2.y :" + kp2.Y);
-    //    double error = Math.Sqrt( error_X * error_X + error_Y * error_Y);
-    //    return error;
-    //}
     //--------------------------------------------------------------------------------------------------
 
     /**
@@ -147,8 +62,10 @@ class calcR
     }
 
 
-    //-----------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------
+    /**
+     * RANSAC method
+     */
 
     public static Tuple<List<Point2d>, List<Point2d>> RansacMethod(List<Point2d> kp1, List<Point2d> kp2, int W, int H)
     {
@@ -271,8 +188,8 @@ class calcR
 
     static void Main()
     {
-        Mat srcOri = new Mat("C:/Users/Li&Ao/Desktop/Test/3.JPG", ImreadModes.Grayscale);
-        Mat dstOri = new Mat("C:/Users/Li&Ao/Desktop/Test/4.JPG", ImreadModes.Grayscale);
+        Mat srcOri = new Mat("C:/Users/Li&Ao/Desktop/Test/5.JPG", ImreadModes.Grayscale);
+        Mat dstOri = new Mat("C:/Users/Li&Ao/Desktop/Test/6.JPG", ImreadModes.Grayscale);
 
         Mat src = new Mat();
         Mat dst = new Mat();
@@ -310,14 +227,12 @@ class calcR
         Point2d Point2fToPoint2d(Point2f pf) => new Point2d(((double)pf.X), ((double)pf.Y));
         var betterKp1_tmp = betterKp1.ConvertAll(Point2fToPoint2d);
         var betterKp2_tmp = betterKp2.ConvertAll(Point2fToPoint2d);
-        var output = new Mat();
 
-        // useRANSAC to calculate
         var bestTuple = RansacMethod(betterKp1_tmp, betterKp2_tmp, src.Cols, src.Rows);
         var bestKp1 = bestTuple.Item1;
         var bestKp2 = bestTuple.Item2;
 
-        // draw matches after ransac
+        //Step5:draw matches after ransac
         var plotMatches = new List<DMatch>();
         foreach (DMatch[] items in matches)
         {
@@ -328,35 +243,19 @@ class calcR
                 plotMatches.Add(items[0]);
             }
         }
-        Console.WriteLine("betterkp size is " + betterKp1.Count);
-        Console.WriteLine("match size is " + plotMatches.Count);
-        Console.WriteLine("kp size is " + bestKp2.Count);
+       
         Mat outImg = new Mat();
         Cv2.DrawMatches(src, kp1, dst, kp2, plotMatches, outImg);
         Cv2.ImShow("outImg", outImg);
         
 
         Cv2.Resize(outImg, outImg, new Size(outImg.Rows / 2, outImg.Cols / 2));
-        Cv2.ImWrite("C:/Users/Li&Ao/Desktop/Test/output-5-6-4.JPG", outImg);
+        Cv2.ImWrite("C:/Users/Li&Ao/Desktop/Test/output.JPG", outImg);
 
-        // test R matrix    
-        //Matrix<double> A = Matrix<double>.Build.Dense(3, bestKp1.Count);
-        //Matrix<double> B = Matrix<double>.Build.Dense(3, bestKp2.Count);
-        //for (int i = 0; i < bestKp1.Count; i++)
-        //{
-        //    Vector<double> p1 = From2dTo3d(bestKp1[i], src.Cols, src.Rows);
-        //    Vector<double> p2 = From2dTo3d(bestKp2[i], src.Cols, src.Rows);
-        //    A.SetColumn(i, p1);
-        //    B.SetColumn(i, p2);
-        //}
-        //var R = CalcRotation(A, B);
-        //Console.WriteLine("R matrix is:" + R);
-        //Cv2.WaitKey();
-        //-----------------------------------------------------------------------------------
-        Matrix<double> A = Matrix<double>.Build.Dense(3, 3);
-        Matrix<double> B = Matrix<double>.Build.Dense(3, 3);
-        for (int i = 0; i < 3; i++)
-        {
+        //Calculate R matrix    
+        Matrix<double> A = Matrix<double>.Build.Dense(3, bestKp1.Count);
+        Matrix<double> B = Matrix<double>.Build.Dense(3, bestKp2.Count);
+        for (int i = 0; i < bestKp1.Count; i++) {
             Vector<double> p1 = From2dTo3d(bestKp1[i], src.Cols, src.Rows);
             Vector<double> p2 = From2dTo3d(bestKp2[i], src.Cols, src.Rows);
             A.SetColumn(i, p1);
@@ -365,28 +264,6 @@ class calcR
         var R = CalcRotation(A, B);
         Console.WriteLine("R matrix is:" + R);
         Cv2.WaitKey();
-
-
-        // test homography
-        //Mat H_mat = new Mat(new Size(3, 3), MatType.CV_64FC1);
-        //for (int i = 0; i < 3; i++)
-        //{
-        //    for (int j = 0; j < 3; j++)
-        //    {
-        //        H_mat.Set<double>(i, j, R[i, j]);
-        //    }
-        //}
-        //Cv2.WarpPerspective(src, src, H_mat, src.Size());
-
-        // plot after homography
-        //Mat plot_img = new Mat(new Size(src.Width, src.Height + dst.Height), MatType.CV_8UC3);
-        //plot_img.SetTo(new Scalar(0, 0, 0));
-        //var tmp1 = new Mat(plot_img, new Rect(0, 0, src.Width, src.Height));
-        //var tmp2 = new Mat(plot_img, new Rect(0, src.Height - 1, dst.Width, dst.Height));
-        //src.CopyTo(tmp1);
-        //dst.CopyTo(tmp2);
-        //Cv2.ImShow("plot", plot_img);
-        //Cv2.WaitKey();
 
     }
 }
